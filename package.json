@@ -1,0 +1,29 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "description": "MicroService Architecture Auth",
+  "main": "microservice_auth.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./microservice_auth.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gijoona/msa-be-auth.git"
+  },
+  "author": "devilkij77@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gijoona/msa-be-auth/issues"
+  },
+  "homepage": "https://github.com/gijoona/msa-be-auth#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "elasticsearch": "^15.1.1",
+    "express": "^4.16.3",
+    "mysql": "^2.16.0",
+    "passport": "^0.4.0",
+    "passport-kakao": "0.0.5",
+    "redis": "^2.8.0"
+  }
+}
