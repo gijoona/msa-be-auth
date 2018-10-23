@@ -62,22 +62,22 @@ app.use(passport.initialize());
 // kakao 인증처리
 app.get('/auth/kakao', passport.authenticate('kakao'));
 app.get('/auth/kakao/callback', passport.authenticate('kakao', {
-  successRedirect: 'http://35.200.103.250:8080/code', // 성공하면 /code으로 가도록
-  failureRedirect: 'http://35.200.103.250:8080/login'
+  successRedirect: 'http://35.200.103.250:8000/code', // 성공하면 /code으로 가도록
+  failureRedirect: 'http://35.200.103.250:8000/login'
 }));
 
 // facebook 인증처리
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: 'http://35.200.103.250:8080/code', // 성공하면 /code으로 가도록
-  failureRedirect: 'http://35.200.103.250:8080/login'
+  successRedirect: 'http://35.200.103.250:8000/code', // 성공하면 /code으로 가도록
+  failureRedirect: 'http://35.200.103.250:8000/login'
 }));
 
 // naver 인증처리
 app.get('/auth/naver', passport.authenticate('naver'));
 app.get('/auth/naver/callback', passport.authenticate('naver', {
-  successRedirect: 'http://35.200.103.250:8080/code', // 성공하면 /code으로 가도록
-  failureRedirect: 'http://35.200.103.250:8080/login'
+  successRedirect: 'http://35.200.103.250:8000/code', // 성공하면 /code으로 가도록
+  failureRedirect: 'http://35.200.103.250:8000/login'
 }));
 
 app.listen(9070, function () {
