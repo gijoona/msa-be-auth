@@ -1,3 +1,4 @@
+// TODO :: 임시로 passport 처리로직 작성. 이후 로직 재개발 필요
 const express = require('express');
 var app = express();
 
