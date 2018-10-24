@@ -15,6 +15,28 @@ var passport = require('passport'),
     FacebookStrategy = require('passport-facebook').Strategy,
     NaverStrategy = require('passport-naver').Strategy;
 
+/*
+custom profile {
+	provider: ['kakao', 'facebook', 'naver'],
+	id: '',
+	displayName: '',
+	username: '',
+	emails: [],
+	name: {familyName: '', givenName: '', middleName: ''}
+	gender: '',
+	profileUrl: '',
+	_json: {
+		id: '',
+		uuid: '',
+		nickname: '',
+		profile_image: '',
+		thumbnail_image: '',
+		email: '',
+		age: '',
+		birthday: '',
+	}
+}
+*/
 // passport-kakao 설정
 passport.use(new KakaoStrategy({
     clientID : 'f8c9331888d39bc7d4a20aae640ec817',
@@ -23,8 +45,9 @@ passport.use(new KakaoStrategy({
   },
   function(accessToken, refreshToken, profile, done){
     // 사용자의 정보는 profile에 들어있다.
-    let userInfo = profile;
-    return done(null, profile._json);
+    // _json.properties에 들어있는 데이터를 _json으로 한단계 올린다.
+    Object.assign(profile._json, profile._json.properties);
+    return done(null, profile);
   }
 ));
 
@@ -36,8 +59,7 @@ passport.use(new FacebookStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
     // 사용자의 정보는 profile에 들어있다.
-    let userInfo = profile;
-    return cb(null, profile._json);
+    return cb(null, profile);
   }
 ));
 
@@ -49,8 +71,7 @@ passport.use(new NaverStrategy({
     },
     function(accessToken, refreshToken, profile, done) {
       // 사용자의 정보는 profile에 들어있다.
-      let userInfo = profile;
-      return done(null, profile._json);
+      return done(null, profile);
     }
 ));
 
