@@ -1,5 +1,5 @@
 const defaults = {
-  "ip": process.env.NODE_ENV === 'production' ? '35.200.100.250' : 'localhost'
+  "ip": process.env.NODE_ENV === 'development' ? 'localhost' : '35.200.100.250'
 };
 
 const distribute = Object.assign(
@@ -18,7 +18,7 @@ const database = Object.assign(
   {},
   defaults,
   {
-    "ip": "35.200.103.250", 
+    "ip": "35.200.103.250",
     "port": null,
     "username": "root",
     "password": "",
