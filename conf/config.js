@@ -1,5 +1,5 @@
 const defaults = {
-  "ip": process.env.NODE_ENV === 'development' ? 'localhost' : '35.200.100.250'
+  "ip": process.env.NODE_ENV === 'development' ? 'localhost' : '35.200.103.250'
 };
 
 const distribute = Object.assign(
