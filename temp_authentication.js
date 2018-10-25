@@ -122,28 +122,28 @@ app.get('/auth/join', function(req, res){
 
 // local 인증처리
 app.post('/auth/local', passport.authenticate('local', { failureRedirect: `http://${host_ip}:8080/login` }), function(req, res) {
-  res.redirect(`http://${host_ip}:8000/code`);
+  res.redirect(`http://${host_ip}:8080/code`);
 });
 
 // kakao 인증처리
 app.get('/auth/kakao', passport.authenticate('kakao'));
 app.get('/auth/kakao/callback', passport.authenticate('kakao', {
-  successRedirect: `http://${host_ip}:8000/code`, // 성공하면 /code으로 가도록
-  failureRedirect: `http://${host_ip}:8000/login`
+  successRedirect: `http://${host_ip}:8080/code`, // 성공하면 /code으로 가도록
+  failureRedirect: `http://${host_ip}:8080/login`
 }));
 
 // facebook 인증처리
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: `http://${host_ip}:8000/code`, // 성공하면 /code으로 가도록
-  failureRedirect: `http://${host_ip}:8000/login`
+  successRedirect: `http://${host_ip}:8080/code`, // 성공하면 /code으로 가도록
+  failureRedirect: `http://${host_ip}:8080/login`
 }));
 
 // naver 인증처리
 app.get('/auth/naver', passport.authenticate('naver'));
 app.get('/auth/naver/callback', passport.authenticate('naver', {
-  successRedirect: `http://${host_ip}:8000/code`, // 성공하면 /code으로 가도록
-  failureRedirect: `http://${host_ip}:8000/login`
+  successRedirect: `http://${host_ip}:8080/code`, // 성공하면 /code으로 가도록
+  failureRedirect: `http://${host_ip}:8080/login`
 }));
 
 app.listen(9070, function () {
