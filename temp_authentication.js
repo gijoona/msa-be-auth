@@ -1,9 +1,19 @@
 // TODO :: 20181023. 임시로 passport 처리로직 작성. 이후 로직 재개발 필요
+const conf = require('./conf/config').setting;
+
 const express = require('express');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+
 var app = express();
 app.use(express.json());  // POST request 처리
+app.use(session({
+  store: new RedisStore({host: conf.redis.ip, port: conf.redis.port}),
+  secret: 'keyboard cat',
+  resave: false
+}));
 
-var host_ip = process.env.NODE_ENV === 'development' ? 'localhost' : '35.200.103.250';
+var host_ip = conf.service.ip;
 console.log(host_ip);
 
 // CORS 설정
@@ -13,7 +23,7 @@ app.use(cors());
 // MongoDB 설정
 const MongoClient = require('mongodb').MongoClient;
 // const mongoUri = 'mongodb+srv://gijoona:mongodb77@cluster-quester-euzkr.gcp.mongodb.net/test?authSource=test&w=1';
-const mongoUri = 'mongodb+srv://gijoona:mongodb77@cluster-quester-euzkr.gcp.mongodb.net/test';
+const mongoUri = 'mongodb+srv://gijoona:mongodb77@cluster-quester-euzkr.gcp.mongodb.net/quester';
 
 // passport 설정
 var passport = require('passport'),
@@ -53,7 +63,7 @@ passport.use(new LocalStrategy(function(username, password, done){
           console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
      }
      console.log('Connected...');
-     let collection = client.db('test').collection('devices');
+     let collection = client.db('quester').collection('user');
 
      collection.find({id: username, password: password, provider: 'local'}).toArray(function(err, results){
        if(err) throw err;
@@ -156,7 +166,7 @@ function save (profile) {
           console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
      }
      console.log('Connected...');
-     let collection = client.db('test').collection('devices');
+     let collection = client.db('quester').collection('user');
      // const collection = client.db("test").collection("devices").insertOne(profile);
      collection.find({id: profile.id, provider: profile.provider}).toArray(function(err, results){
        if(err) throw err;
