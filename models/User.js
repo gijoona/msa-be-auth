@@ -11,6 +11,57 @@ let UserSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  displayName: {
+    type: String,
+    required: true
+  },
+  provider: {
+    type: String,
+    default: 'local'
+  },
+  username: {
+    type: String,
+    default: ''
+  },
+  power_exp: {
+    type: Number,
+    default: 0
+  },
+  stamina_exp: {
+    type: Number,
+    default: 0
+  },
+  knowledge_exp: {
+    type: Number,
+    default: 0
+  },
+  relation_exp: {
+    type: Number,
+    default: 0
+  },
+  gender: {
+    type: String
+  },
+  email: {
+    type: String
+  },
+  birthday: {
+    type: Date
+  },
+  height: {
+    type: Number,
+    default: 0
+  },
+  weight: {
+    type: Number,
+    default: 0
+  },
+  jobType: {
+    type: String
+  },
+  job: {
+    type: String
   }
 });
 
