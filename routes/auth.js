@@ -5,7 +5,7 @@ const mongoose = require('mongoose'),
       express = require('express'),
       jwt = require('jsonwebtoken'),
       router = express.Router(),
-      User = require('../models/user');
+      User = require('../models/User');
 
 require('../conf/passport')(passport);
 
