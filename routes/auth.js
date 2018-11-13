@@ -29,7 +29,18 @@ router.post('/register', function (req, res) {
     newUser.save(function (err, user) {
       if (err) return res.json({success: false, msg: 'Username already exists.'});
       // res.json({success: true, msg: 'Successfull created new user.'});
-      let token = jwt.sign(user.toJSON(), settings.secret);
+      /*
+        현재 구조(사용자정보에 수령퀘스트를 subDoc으로 추가하는 방식)에서
+        이대로 처리할 경우 퀘스트를 수령할때마다 jwt가 길어지게 되므로 header로 전송 시 문제가 발생
+        user정보에서 _id만을 이용해서 jwt를 생성하도록 수정.
+        - 사용자정보를 역산하지 않기 때문에 가능
+      */
+      let simpleUser = {
+        _id: user['_id'],
+        id: user.id,
+        password: user.password
+      };
+      let token = jwt.sign(simpleUser, settings.secret);
       let resultJSON = { success: true, token: 'JWT ' + token }
 
       // user --> redis
@@ -52,9 +63,22 @@ router.post('/login', function (req, res) {
       // check if password matchs
       user.comparePassword(req.body.password, function (err, isMatch) {
         if (isMatch && !err) {
-          let token = jwt.sign(user.toJSON(), settings.secret);
+          /*
+            현재 구조(사용자정보에 수령퀘스트를 subDoc으로 추가하는 방식)에서
+            이대로 처리할 경우 퀘스트를 수령할때마다 jwt가 길어지게 되므로 header로 전송 시 문제가 발생
+            user정보에서 필수 정보만을 이용해서 jwt를 생성하도록 수정.
+            - 사용자정보를 역산하지 않기 때문에 가능
+          */
+          let simpleUser = {
+            _id: user['_id'],
+            id: user.id,
+            password: user.password
+          };
+          let token = jwt.sign(simpleUser, settings.secret);
+          // let token = jwt.sign(user.toJSON(), settings.secret);
           // TODO :: JWT는 어떤처리를 하는걸까?
           let resultJSON = { success: true, token: 'JWT ' + token }
+
           // user --> redis
           redis.set(resultJSON.token, JSON.stringify(user));
           res.json(resultJSON);
