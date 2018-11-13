@@ -9,6 +9,7 @@ const mongoose = require('mongoose'),
 
 require('../conf/passport')(passport);
 
+// redis 설정
 const redis = require('redis').createClient(conf.redis.port, conf.redis.ip);   // redis 모듈 로드
 redis.on('error', function (err) {  // Redis 에러 처리
   console.log('Redis Error ' + err);
